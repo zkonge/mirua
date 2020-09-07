@@ -1,0 +1,11 @@
+/target/
+Cargo.lock
+**/*.rs.bk
+
+/.vscode/
+/config/
+/content/
+/data/
+/plugins/
+/runtime/
+/mirua.toml
