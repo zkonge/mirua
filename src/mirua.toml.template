@@ -16,7 +16,7 @@ entrypoint = "net.mamoe.mirai.console.pure.MiraiConsolePureLoader"
 # 自定义jre，如需修改，请去除下一行的注释符号
 # path = "./runtime/bin/java"
 
-# jre对应的处理器指令集，如需调用酷q插件，需要在第一次启动前修改
+# jre对应的处理器指令集，如需调用酷q插件，arch参数需要在第一次启动前修改成x32
 # 具体可用的参数参阅 https://mirrors.tuna.tsinghua.edu.cn/AdoptOpenJDK/11/jre
 # arch = "x32"
 

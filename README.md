@@ -9,7 +9,7 @@ Mirai launcher in Rust
 ## 特色
 
 + 自动下载 Mirai 所需要的运行环境
-+ 得益于 OpenJ9，平均可减少30%以上的内存占用
++ 得益于 OpenJ9，平均可减少30%以上的内存占用（由于官方支持原因，32位jre依然使用hotspot）
 + 自定义 Mirai 套件版本号
 + 自定义 Mirai-console 入口点（再也不怕被开发者背刺辣）
 + 下载源来自阿里云，速度++++
