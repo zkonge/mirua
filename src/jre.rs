@@ -30,12 +30,11 @@ pub fn check_jre(jre_path: &str) -> bool {
     debug!("jre_path: {}", jre_path);
     let jre_path = Path::new(jre_path);
     if !jre_path.exists() && !jre_path.with_extension("exe").exists() {
-        info!("找不到 jar_path 指定的 java，开始下载 adoptopenjdk_openj9 到当前目录");
-        info!("openj9相比于hotspot有更大的内存优势");
+        info!("找不到 jar_path 指定的 java");
         return false;
     }
     match Command::new(jre_path).arg("-version").output() {
-        Ok(output) => info!("{}", String::from_utf8_lossy(&output.stderr)),
+        Ok(output) => info!("jre 版本：\n{}", String::from_utf8_lossy(&output.stderr)),
         Err(e) => panic!(
             "jre_path 指定的 java 损坏，请考虑重新下载。错误：{}",
             e.to_string()
@@ -97,7 +96,7 @@ pub fn get_jre(jre_path: &str, jre_arch: Option<&str>) {
         }
     }
 
-    bar.finish_println("jre 下载完成");
+    bar.finish_println("");
 
     info!("提取 jre...");
 
@@ -135,7 +134,7 @@ pub fn get_jre(jre_path: &str, jre_arch: Option<&str>) {
             bar.inc();
         }
 
-        bar.finish_println("提取完成");
+        bar.finish_println("");
     }
 
     //重命名

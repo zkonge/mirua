@@ -49,7 +49,7 @@ fn download_maven(pom: &str, save_path: &'static str) {
         });
     }
     pool.join();
-    pb.lock().unwrap().finish_println("依赖下载完成\n");
+    pb.lock().unwrap().finish_println("");
 }
 
 //未完成
@@ -111,6 +111,7 @@ fn main() {
 
     let java_path = config.jre.path.as_deref().unwrap_or(JAVA_PATH);
     if !jre::check_jre(java_path) {
+        info!("开始下载 adoptopenjdk_openj9 到当前目录");
         jre::get_jre(JRE_PATH, config.jre.arch.as_deref());
     }
 

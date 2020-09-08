@@ -32,7 +32,7 @@ pub fn download_to(url: &str, save_path: &str) {
             bar.add(0b11111111);
         }
     }
-    bar.finish_println("下载完成\n");
+    bar.finish_println("");
 
     let save_path = if save_path.is_dir() {
         save_path.join(Path::new(url).file_name().unwrap())
