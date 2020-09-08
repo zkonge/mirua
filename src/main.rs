@@ -23,6 +23,7 @@ mod utils;
 const MIRAI_PATH: &str = "./content";
 const JRE_PATH: &str = "./runtime";
 const JAVA_PATH: &str = "./runtime/bin/java";
+const MIRUA_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn download_maven(pom: &str, save_path: &'static str) {
     //TODO:save_path换path泛型
@@ -84,6 +85,8 @@ fn init_log() {
 
 fn main() {
     init_log();
+
+    info!("Mirua v{}", MIRUA_VERSION);
 
     let config = Config::get_config("mirua.toml");
     debug!("{:?}", config);
