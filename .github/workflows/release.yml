@@ -13,15 +13,15 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact_name: mirua
-            asset_name: mirua_linux_amd64
+            asset_name: mirua_linux_x86_64
 
           - os: windows-latest
             artifact_name: mirua.exe
-            asset_name: mirua_windows_amd64.exe
+            asset_name: mirua_windows_x86_64.exe
 
           - os: macos-latest
             artifact_name: mirua
-            asset_name: mirua_macos_amd64
+            asset_name: mirua_macos_x86_64
 
     name: Publish for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -44,10 +44,24 @@ jobs:
         if: ${{ !startsWith(matrix.os, 'windows') }}
         run: strip target/release/${{ matrix.artifact_name }}
 
+      - name: Rename
+        run: mv target/release/${{ matrix.artifact_name }} target/release/${{ matrix.asset_name }}
+
+      - name: Push file
+        uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source_file: target/release/${{ matrix.asset_name }}
+          destination_repo: zkonge/mirua-update
+          destination_folder: ${{ github.event.release.tag_name }}
+          user_email: bot@konge.pw
+          user_name: zkonge
+
       - name: Upload
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/release/${{ matrix.artifact_name }}
+          file: target/release/${{ matrix.asset_name }}
           asset_name: ${{ matrix.asset_name }}
           tag: ${{ github.ref }}
