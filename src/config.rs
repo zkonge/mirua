@@ -1,8 +1,10 @@
-use std::collections::HashMap;
-use std::fs::File;
-use std::io::{Read, Write};
-use std::path::Path;
-use std::process;
+use std::{
+    collections::HashMap,
+    fs::File,
+    io::{Read, Write},
+    path::Path,
+    process,
+};
 
 use log::info;
 use serde::{Deserialize, Serialize};

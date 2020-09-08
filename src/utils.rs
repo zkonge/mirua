@@ -1,6 +1,8 @@
-use std::fs::{self, File};
-use std::io::Write;
-use std::path::Path;
+use std::{
+    fs::{self, File},
+    io::Write,
+    path::Path,
+};
 
 use log::debug;
 use minreq;

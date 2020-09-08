@@ -1,16 +1,16 @@
-use std::fs::{self, File};
-use std::io::Write;
-use std::path::Path;
 use std::{
+    fs::{self, File},
+    io::Write,
+    path::Path,
     process::{Command, Stdio},
     sync::{Arc, Mutex},
 };
 
-use env_logger;
 use glob;
 use log::{debug, info, warn};
 use minreq;
 use pbr::ProgressBar;
+use simple_logger::SimpleLogger;
 use threadpool::ThreadPool;
 
 mod config;
@@ -18,7 +18,6 @@ use config::Config;
 
 mod jre;
 mod pom;
-//mod runner;
 mod utils;
 
 const MIRAI_PATH: &str = "./content";
@@ -69,8 +68,22 @@ fn parse_mirai_from_config(project: &str, version: &str) -> (String, String, Str
     )
 }
 
+fn init_log() {
+    let level = match std::env::var("RUST_LOG") {
+        Ok(x) => match x.to_lowercase().as_str() {
+            "trace" => log::LevelFilter::Trace,
+            "debug" => log::LevelFilter::Debug,
+            "info" => log::LevelFilter::Info,
+            "warn" => log::LevelFilter::Warn,
+            _ => log::LevelFilter::Error,
+        },
+        _ => log::LevelFilter::Info,
+    };
+    SimpleLogger::new().with_level(level).init().unwrap();
+}
+
 fn main() {
-    env_logger::init_from_env(env_logger::Env::default().default_filter_or("info"));
+    init_log();
 
     let config = Config::get_config("mirua.toml");
     debug!("{:?}", config);
@@ -128,6 +141,8 @@ fn main() {
 
     let mut child = Command::new(java_path)
         .args(&["-cp", Path::new(MIRAI_PATH).join("*").to_str().unwrap()])
+        //.arg("-Dorg.jline.terminal.dumb=true")
+        //.arg("-Djansi.passthrough=true")
         .arg(config.entrypoint)
         .stdin(Stdio::inherit())
         .stdout(Stdio::inherit())

@@ -1,7 +1,4 @@
-use std::fs;
-use std::io::Cursor;
-use std::path::Path;
-use std::process::Command;
+use std::{fs, io::Cursor, path::Path, process::Command};
 
 use glob;
 use log::{debug, info};
