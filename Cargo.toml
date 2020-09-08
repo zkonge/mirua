@@ -16,7 +16,7 @@ toml = "^0.5"
 glob = "^0.3"
 pbr = "^1.0"
 threadpool = "^1.8"
-minreq = { version = "^2.2", features = [ "https-native" ] }
+minreq = { version = "^2.2", features = [ "https-native", "json-using-serde" ] }
 serde = { version = "^1.0", features = [ "derive" ] }
 quick-xml = { version = "^0.18", features = [ "serialize" ] }
 

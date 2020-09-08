@@ -18,6 +18,7 @@ use config::Config;
 
 mod jre;
 mod pom;
+mod self_update;
 mod utils;
 
 const MIRAI_PATH: &str = "./content";
@@ -50,12 +51,6 @@ fn download_maven(pom: &str, save_path: &'static str) {
     }
     pool.join();
     pb.lock().unwrap().finish_println("");
-}
-
-//未完成
-fn self_update() {
-    info!("自动更新检测开始");
-    info!("然而更新服务还没上线");
 }
 
 fn parse_mirai_from_config(project: &str, version: &str) -> (String, String, String) {
@@ -104,7 +99,7 @@ fn main() {
         });
 
     if config.self_update {
-        self_update();
+        self_update::self_update();
     }
 
     utils::ensure_dir(MIRAI_PATH);

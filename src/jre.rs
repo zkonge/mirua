@@ -18,24 +18,17 @@ use zip::ZipArchive;
 const BASE_JRE_URL: &str = "https://mirrors.tuna.tsinghua.edu.cn/AdoptOpenJDK/11/jre";
 
 macro_rules! jre_format {
-    ($arch:expr, $os:expr, $suffex:expr) => {
-        if $arch == "x32"{ // adoptopenjdk_openj9不支持32位windows
+    ($arch:expr, $os:expr, $suffix:expr) => {
+        if $arch == "x32" {
+            // adoptopenjdk_openj9不支持32位windows
             format!(
                 "{}/x32/{}/OpenJDK11U-jre_x86-32_{}_hotspot_11.0.8_10{}",
-                BASE_JRE_URL,
-                $os,
-                $os,
-                $suffex
+                BASE_JRE_URL, $os, $os, $suffix
             )
-        }else{
+        } else {
             format!(
                 "{}/{}/{}/OpenJDK11U-jre_{}_{}_openj9_11.0.8_10_openj9-0.21.0{}",
-                BASE_JRE_URL,
-                $arch,
-                $os,
-                $arch,
-                $os,
-                $suffex
+                BASE_JRE_URL, $arch, $os, $arch, $os, $suffix
             )
         }
     };
