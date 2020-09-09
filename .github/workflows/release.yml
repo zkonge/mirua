@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            artifact_name: mirua
+            asset_name: mirua_linux_x86_64
+
+          - os: windows-latest
+            artifact_name: mirua.exe
+            asset_name: mirua_windows_x86_64
+
+          - os: macos-latest
+            artifact_name: mirua
+            asset_name: mirua_macos_x86_64
+
+    name: Publish for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+      
+      - name: Strip
+        if: ${{ !startsWith(matrix.os, 'windows') }}
+        run: strip target/release/${{ matrix.artifact_name }}
+
+      - name: Rename
+        run: mv target/release/${{ matrix.artifact_name }} target/release/${{ matrix.asset_name }}
+
+      - name: Prepare mirua update
+        run: |
+          git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/zkonge/mirua-update.git --depth=1
+
+      - name: Upload to mirua-update
+        if: ${{ !startsWith(matrix.os, 'windows') }}
+        run: |
+          mkdir -p ./mirua-update/${{ github.event.release.tag_name }}
+          git config --global user.email "bot@konge.pw"
+          git config --global user.name "mirua-buildbot"
+          cp target/release/${{ matrix.asset_name }} ./mirua-update/${{ github.event.release.tag_name }}/
+          git -C ./mirua-update add .
+          git -C ./mirua-update commit -m Release
+          git -C ./mirua-update push
+
+      - name: Upload to mirua-update
+        if: ${{ startsWith(matrix.os, 'windows') }}
+        run: |
+          $ErrorActionPreference = 'SilentlyContinue'
+          mkdir -ErrorAction Ignore ./mirua-update/${{ github.event.release.tag_name }}
+          git config --global user.email "bot@konge.pw"
+          git config --global user.name "mirua-buildbot"
+          cp target/release/${{ matrix.asset_name }} ./mirua-update/${{ github.event.release.tag_name }}/
+          git -C ./mirua-update add .
+          git -C ./mirua-update commit -m Release
+          git -C ./mirua-update push
+
+      - name: Upload
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/release/${{ matrix.asset_name }}
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
