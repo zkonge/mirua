@@ -13,14 +13,22 @@ Mirai launcher in Rust
 + 自定义 Mirai 套件版本号
 + 自定义 Mirai-console 入口点（再也不怕被开发者背刺辣）
 + 下载源来自阿里云，速度++++
-+ ~~自升级~~ 这周内完成
-+ ~~全平台支持~~ 这周内完成
++ 自升级
++ ~~全平台支持~~ 摸了
 
 ## 下载地址
 
-参阅右侧 Release
+在下载后，Windows 平台用户请手动在文件名最后添加 `.exe` 扩展名
 
-稍后更新 jsDelivr 地址
+|系统|下载链接|
+|-|-|
+|Windows 64位|[mirua_windows_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.1.2/mirua_windows_x86_64)|
+|Linux 64位|[mirua_linux_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.1.2/mirua_linux_x86_64)|
+|MacOS 64位|[mirua_macos_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.1.2/mirua_macos_x86_64)|
+
+~~别的处理器指令集先摸了~~
+
+欢迎改进 GitHub Action 构建脚本
 
 ## 注意
 
