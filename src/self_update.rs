@@ -55,7 +55,7 @@ pub fn self_update() {
 
     let self_path = env::args().next().unwrap();
     let self_path = Path::new(&self_path);
-    fs::rename(self_path, self_path.with_extension("oldmirua")).expect("改名失败");
+    fs::rename(self_path, self_path.with_extension("miruaold")).expect("改名失败");
 
     let mut f = File::create(self_path).unwrap();
     f.write(&result).unwrap();
