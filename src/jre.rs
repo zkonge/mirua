@@ -22,12 +22,12 @@ macro_rules! jre_format {
         if $arch == "x32" {
             // adoptopenjdk_openj9不支持32位windows
             format!(
-                "{}/x32/{}/OpenJDK11U-jre_x86-32_{}_hotspot_11.0.8_10{}",
+                "{}/x32/{}/OpenJDK11U-jre_x86-32_{}_hotspot_11.0.9_11{}",
                 BASE_JRE_URL, $os, $os, $suffix
             )
         } else {
             format!(
-                "{}/{}/{}/OpenJDK11U-jre_{}_{}_openj9_11.0.8_10_openj9-0.21.0{}",
+                "{}/{}/{}/OpenJDK11U-jre_{}_{}_openj9_11.0.9_11_openj9-0.23.0{}",
                 BASE_JRE_URL, $arch, $os, $arch, $os, $suffix
             )
         }
