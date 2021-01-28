@@ -42,7 +42,7 @@ pub fn check_jre(jre_path: &str) -> bool {
         return false;
     }
     match Command::new(jre_path).arg("-version").output() {
-        Ok(output) => info!("jre 版本：\n{:?}", &output.stderr),
+        Ok(output) => info!("jre 版本：\n{}", String::from_utf8_lossy(&output.stderr)),
         Err(e) => panic!(
             "jre_path 指定的 java 损坏，请考虑重新下载。错误：{}",
             e.to_string()

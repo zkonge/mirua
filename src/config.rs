@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 pub struct Mirai {
     pub full: HashMap<String, String>,
     pub maven: HashMap<String, String>,
+    pub plugins: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -54,6 +55,8 @@ impl Config {
             process::exit(0);
         };
 
-        toml::from_str::<Self>(&buf).expect("解析配置文件失败")
+        toml::from_str::<Self>(&buf).expect(
+            "解析配置文件失败，请检查配置文件格式与版本，或者可以选择直接删除./mirua.toml重来"
+        )
     }
 }

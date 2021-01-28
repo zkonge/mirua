@@ -1,4 +1,4 @@
-# 配置文件版本 1 (20200908)
+# 配置文件版本 2 (20210128)
 # 请注意程序更新时的配置文件版本变动
 
 # 是否启用mirua的自动更新
@@ -10,13 +10,13 @@ self-update = true
 bootstrap-commands = []
 
 # mirai-console入口点，一般来说不用关心这个，在明白这是个啥玩意之前不要修改
-entrypoint = "net.mamoe.mirai.console.pure.MiraiConsolePureLoader"
+entrypoint = "net.mamoe.mirai.console.terminal.MiraiConsoleTerminalLoader"
 
 [jre]
 # 自定义jre，如需修改，请去除下一行的注释符号
 # path = "./runtime/bin/java"
 
-# jre对应的处理器指令集，如需调用酷q插件，arch参数需要在第一次启动前修改成x32
+# jre对应的处理器指令集，默认为x64，如需调用酷q插件，arch参数需要在第一次启动前修改成x32
 # 具体可用的参数参阅 https://mirrors.tuna.tsinghua.edu.cn/AdoptOpenJDK/11/jre
 # arch = "x32"
 
@@ -25,10 +25,18 @@ entrypoint = "net.mamoe.mirai.console.pure.MiraiConsolePureLoader"
 # 启动器不兼容0.5.x的mirai-console（也许接下来会支持）
 [mirai.full]
 # 在jcenter上有现成的完整打包jar
-"net.mamoe:mirai-console" = "1.0-M4-dev-3"
-"net.mamoe:mirai-console-pure" = "1.0-M4-dev-3"
+"net.mamoe:mirai-console" = "2.0.0"
+"net.mamoe:mirai-console-terminal" = "2.0.0"
+"net.mamoe:mirai-core-all" = "2.1.1"
+
+[mirai.plugins]
+# 在jcenter上存在的完整插件打包jar
+# 会存入./plugins文件夹
+# 注意，mirai-native需要32位jre支持
+# "org.itxtech:mirai-native" = "2.0.0-beta.1"
 
 [mirai.maven]
 # 在jcenter上不存在的完整打包，需要解析依赖，并单独下载
 # 只能填一项，多个maven项目会产生不可预知的结果
-"net.mamoe:mirai-core-qqandroid" = "1.2.2"
+# 因为mirai官方提供了全部打包的jar，该配置即将**废弃**
+# "net.mamoe:mirai-core-qqandroid" = "1.3.3"

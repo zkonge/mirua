@@ -22,6 +22,7 @@ mod self_update;
 mod utils;
 
 const MIRAI_PATH: &str = "./content";
+const MIRAI_PLUGINS_PATH: &str = "./plugins";
 const JRE_PATH: &str = "./runtime";
 const JAVA_PATH: &str = "./runtime/bin/java";
 const MIRUA_VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -103,6 +104,7 @@ fn main() {
     }
 
     utils::ensure_dir(MIRAI_PATH);
+    utils::ensure_dir(MIRAI_PLUGINS_PATH);
 
     let java_path = config.jre.path.as_deref().unwrap_or(JAVA_PATH);
     if !jre::check_jre(java_path) {
@@ -135,6 +137,21 @@ fn main() {
         if !jar_path.exists() {
             info!("缺少 {}，开始下载", jar_name);
             utils::download_to(&jar_url, MIRAI_PATH);
+        }
+    }
+
+    //检查插件
+    for (project, version) in config.mirai.plugins.iter() {
+        let (group_id, artifact_id, version) = parse_mirai_from_config(project, version);
+        let jar_url =
+            pom::build_maven_jar_url(&group_id, &artifact_id, &version);
+        let jar_name = Path::new(&jar_url).file_name().unwrap().to_str().unwrap();
+        debug!("jar_name:{}", jar_name);
+        let jar_path = Path::new(MIRAI_PLUGINS_PATH).join(jar_name);
+        debug!("jar_path:{}", jar_path.display());
+        if !jar_path.exists() {
+            info!("缺少 {}，开始下载", jar_name);
+            utils::download_to(&jar_url, MIRAI_PLUGINS_PATH);
         }
     }
 
