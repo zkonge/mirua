@@ -23,9 +23,9 @@ Mirai launcher in Rust
 
 |系统|下载链接|
 |-|-|
-|Windows 64位|[mirua_windows_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.1.4/mirua_windows_x86_64)|
-|Linux 64位|[mirua_linux_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.1.4/mirua_linux_x86_64)|
-|MacOS 64位|[mirua_macos_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.1.4/mirua_macos_x86_64)|
+|Windows 64位|[mirua_windows_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.2.0/mirua_windows_x86_64)|
+|Linux 64位|[mirua_linux_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.2.0/mirua_linux_x86_64)|
+|MacOS 64位|[mirua_macos_x86_64](https://cdn.jsdelivr.net/gh/zkonge/mirua-update@master/v0.2.0/mirua_macos_x86_64)|
 
 ~~别的处理器指令集先摸了~~
 
