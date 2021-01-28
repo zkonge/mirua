@@ -1,6 +1,6 @@
 [package]
 name = "mirua"
-version = "0.1.4"
+version = "0.2.0"
 authors = ["zkonge <zkonge@outlook.com>"]
 edition = "2018"
 
