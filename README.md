@@ -1,5 +1,12 @@
 # Mirua
 
+## 停止维护
+原因：
++ Mirai本体下载相比项目初期已经相当便利了
++ Mirai官方已经提供了可用便利的插件安装机制
++ go-cqhttp也是一个好选择
++ ~~jvm系程序内存占用好**大~~
+
 Mirai launcher in Rust
 
 又又又一个Mirai一键启动器
